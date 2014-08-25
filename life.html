@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8' />
+		<style>
+			body{
+				position:absolute;
+				width:100%;
+				height:100%;
+				color:#777;
+				background-color:#333;
+				font-size:72px;
+				font-family:sans-serif;
+				margin:0px;
+			}
+			*:focus {
+				outline: 0;
+			}
+			button {
+				position:absolute;
+				border:0px;
+				font-size:0.5em;
+				background-color:rgba(0,0,0,0);
+				color:inherit;
+				cursor:pointer;
+			}
+			.life{
+				position:relative;
+				float:left;
+				width:12rem;
+				height:12rem;
+			}
+			.life-total{
+				position:absolute;
+				top:25%;
+				height:50%;
+				width:100%;
+				text-align:center;
+				color:white;
+			}
+			.life .button{
+				position:absolute;
+				height:25%;
+				width:50%;
+
+			}
+			.increment{
+				top:0px;
+				left:0px;
+			}
+			.increment-more{
+				top:0px;
+				right:0px;
+			}
+			.decrement{
+				bottom:0px;
+				left:0px;
+			}
+			.decrement-more{
+				bottom:0px;
+				right:0px;
+			}
+			.actions{
+				position:relative;
+				float:left;
+				width:3rem;
+				height:12rem;
+			}
+			.add{
+				top:0px;
+				width:100%;
+				height:50%;
+			}
+			.remove{
+				bottom:0px;
+				width:100%;
+				height:50%;
+			}
+			.add:active, .remove:active{
+				color:#333;
+				background-color:#777;
+			}
+			.life:nth-child(4n){
+				background-color:rgb(255,192,0);
+				color:rgb(255,217,102);
+			}
+			.life:nth-child(4n+1){
+				background-color:rgb(91,155,213);
+				color:rgb(157,195,2302);
+			}
+			.life:nth-child(4n+2){
+				background-color:rgb(112,173,71);
+				color:rgb(169,209,142);
+			}
+			.life:nth-child(4n+3){
+				background-color:rgb(237,125,49);
+				color:rgb(244,177,131);
+			}
+			.life:nth-child(4n) .button:active{
+				color:rgb(255,192,0);
+				background-color:rgb(255,217,102);
+			}
+			.life:nth-child(4n+1) .button:active{
+				color:rgb(91,155,213);
+				background-color:rgb(157,195,2302);
+			}
+			.life:nth-child(4n+2) .button:active{
+				color:rgb(112,173,71);
+				background-color:rgb(169,209,142);
+			}
+			.life:nth-child(4n+3) .button:active{
+				color:rgb(237,125,49);
+				background-color:rgb(244,177,131);
+			}
+		</style>
+	</head>
+	<body onresize='Resize()'>
+		<div class='actions'>
+			<button class='add'>+</button>
+			<button class='remove'>-</button>
+		</div>
+		<div class='factory' style='display:none;'>
+			<div class='life'>
+				<div class='life-total'>20</div>
+				<button class='button increment'>+</button>
+				<button class='button increment-more'>++</button>
+				<button class='button decrement'>-</button>
+				<button class='button decrement-more'>--</button>
+			</div>
+		</div>
+	</body>
+	<script src='js/jquery-1.11.1.min.js'></script>
+	<script type='text/javascript'>
+		$(document).ready(function() {
+			AddLifeTotal();
+			AddLifeTotal();
+			Resize();
+		});
+
+		$('.increment').on('click', function() {
+			var lifeTotal = $(this).siblings('.life-total');
+			lifeTotal.text(+lifeTotal.text()+1);
+		});
+
+		$('.increment-more').on('click', function() {
+			var lifeTotal = $(this).siblings('.life-total');
+			lifeTotal.text(+lifeTotal.text()+5);
+		});
+
+		$('.decrement').on('click', function() {
+			var lifeTotal = $(this).siblings('.life-total');
+			lifeTotal.text(+lifeTotal.text()-1);
+		});
+
+		$('.decrement-more').on('click', function() {
+			var lifeTotal = $(this).siblings('.life-total');
+			lifeTotal.text(+lifeTotal.text()-5);
+		});
+
+		$('.add').on('click', function() {
+			AddLifeTotal();
+		});
+
+		$('.remove').on('click', function() {
+			$('.life+.life+.life:last').remove();
+			Resize();
+		});
+
+		function Resize() {
+			var width = 100/($('.life').length - 0.75);
+			$('.life').css('width', width+'%');
+			$('.actions').css('width', width/4+'%');
+			var height = $('.life').width();
+			$('.life, .actions').css('height', height+'px');
+			$('.life-total').css('line-height', height/2+'px');
+			$('.life, .actions').css('margin-top', ($('body').height()-height)/2);
+			$('body').css('font-size', $('.life').height()/2.5);
+		}
+
+		function AddLifeTotal() {
+			$('.actions').before(LifeTotalFactory());
+			Resize();
+		}
+		
+		function LifeTotalFactory() {
+			return $('.factory .life').clone(true);
+		}
+	</script>
+</html>
