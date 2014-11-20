@@ -70,7 +70,6 @@
 				position:absolute;
 				height:25%;
 				width:50%;
-
 			}
 			.increment{
 				top:0px;
@@ -154,10 +153,10 @@
 			<div class='player'>
 				<div class='life'>
 					<div class='life-total'>20</div>
-					<button class='button increment'>+</button>
-					<button class='button increment-more'>++</button>
-					<button class='button decrement'>-</button>
-					<button class='button decrement-more'>--</button>
+					<button class='button increment'>++</button>
+					<button class='button increment-more'>+</button>
+					<button class='button decrement'>--</button>
+					<button class='button decrement-more'>-</button>
 				</div>
 				<div class='name'>
 					<input value='Player'/>
@@ -175,22 +174,22 @@
 
 		$('.increment').on('click', function() {
 			var lifeTotal = $(this).siblings('.life-total');
-			lifeTotal.text(+lifeTotal.text()+1);
+			lifeTotal.text(+lifeTotal.text()+10);
 		});
 
 		$('.increment-more').on('click', function() {
 			var lifeTotal = $(this).siblings('.life-total');
-			lifeTotal.text(+lifeTotal.text()+5);
+			lifeTotal.text(+lifeTotal.text()+1);
 		});
 
 		$('.decrement').on('click', function() {
 			var lifeTotal = $(this).siblings('.life-total');
-			lifeTotal.text(+lifeTotal.text()-1);
+			lifeTotal.text(+lifeTotal.text()-10);
 		});
 
 		$('.decrement-more').on('click', function() {
 			var lifeTotal = $(this).siblings('.life-total');
-			lifeTotal.text(+lifeTotal.text()-5);
+			lifeTotal.text(+lifeTotal.text()-1);
 		});
 
 		$('.add').on('click', function() {
@@ -198,7 +197,7 @@
 		});
 
 		$('.remove').on('click', function() {
-			$('.player+.player+.player:last').remove();
+			$('.player+.player:last').remove();
 			Resize();
 		});
 
